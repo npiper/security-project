@@ -53,7 +53,14 @@ https://spring.io/guides/gs/authenticating-ldap/
 
 # LDAP 
 
+LDAP will run on default port 389. Address examples
+
+* ldap:///localhost:389
+* ldaps:///localhost:636Git
+
 ## Admin Guide
 
-http://www.openldap.org/doc/admin22/quickstart.html
+[Quickstart](http://www.openldap.org/doc/admin22/quickstart.html)
+
+[Running](http://www.openldap.org/doc/admin24/runningslapd.html)
 
