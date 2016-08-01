@@ -36,4 +36,6 @@ The password will be 'iag123456'
 ## Location of cacerts
 /usr/lib/jvm/java-7-oracle/jre/lib/security/cacerts
 
+## Sample Keys, certificates
 
+http://fm4dd.com/openssl/certexamples.htm
