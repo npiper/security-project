@@ -48,9 +48,11 @@ echo "Creating Policy Platform certificate - RSA 2048 bit"
 keytool -genkeypair -alias policy_cert -keystore $PWD/src/main/resources/keystore -storepass iag123456 -dname "CN=policy platform" -v -keypass iag123456 -keysize 2048 -validity 712 -keyalg RSA 
 
 # Now create a certificate signing request for this new policy_cert
+echo "Creating certificate signing request for Policy platform cert"
 keytool -certreq -keystore $PWD/src/main/resources/keystore -storepass iag123456 -v -alias policy_cert -file $PWD/src/main/resources/policy_cert.csr
 
 # Now create a new 'Policy_Certificate' from this signing request using the root CA
+echo "Signing Policy certificate with IAG Cert private key"
 keytool -gencert -keystore $PWD/src/main/resources/truststore -storepass iag123456 -alias root_pk -infile $PWD/src/main/resources/policy_cert.csr -outfile $PWD/src/main/resources/policy_cert.cer -v
 
 echo "Policy Certificate - signed by IAG CA"
