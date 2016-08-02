@@ -22,27 +22,6 @@
     <plugins>
 
 
-<!-- On a clean, wipe the keystore -->
-
-<plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>keytool-maven-plugin</artifactId>
-        <version>1.5</version>
-        <executions>
-          <execution>
-            <phase>clean</phase>
-            <goals>
-              <goal>clean</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <keystore>${project.basedir}/src/main/resources/keystore</keystore>
-        </configuration>
-      </plugin>
-
-
-
 
 <!-- First create a new keystore to import the iag certificate -->
       <plugin>
@@ -54,7 +33,7 @@
             <goals>
               <goal>importCertificate</goal>
             </goals>
-            <phase>generate-resources</phase>
+            <phase>package</phase>
           </execution>
         </executions>
         <configuration>
@@ -62,12 +41,44 @@
           <storepass>${keystore.keypass}</storepass>
           <!--<file>${project.basedir}/src/main/resources/iag_internal_ca.crt</file> -->
           <file>${project.basedir}/src/main/resources/frank4dd-cacert.der</file>
-
+          <alias>root_CA</alias>
           <trustcacerts>true</trustcacerts>
           <noprompt>true</noprompt>  
        </configuration>
       </plugin>
     </plugins>
   </build> 
+
+<profiles>
+  <profile>
+    <activation>
+      <property>
+        <name>clean-keystore</name>
+      </property>
+    </activation>
+
+    <build>
+      <plugins>
+         <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>keytool-maven-plugin</artifactId>
+        <version>1.5</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>clean</goal>
+            </goals>
+            <phase>clean</phase>
+          </execution>
+        </executions>
+        <configuration>
+          <keystore>${project.basedir}/src/main/resources/keystore</keystore>
+        </configuration>
+      </plugin>
+
+      </plugins>
+   </build>
+  </profile>
+</profiles>
 
 </project>
